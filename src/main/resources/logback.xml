@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- 定义控制台输出 -->
+    <appender name="consoleOut" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%date %level [%thread] %logger.%class{0}#%method [%file:%line] %msg%n</pattern>
+        </encoder>
+    </appender>
+
+
+    <appender name="RedisRouteServiceAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder><!-- 必须指定，否则不会往文件输出内容 -->
+            <pattern>%d{HH:mm:ss.SSS} [%thread][%p][%c][%M][%L] - %msg%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- daily rollover -->
+            <FileNamePattern>D:/log/redisroute.log.%d{yyyy-MM-dd}</FileNamePattern>
+            <!-- keep 30 days' worth of history -->
+            <maxHistory>365</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <root level="INFO"><!-- TRACE, DEBUG, INFO, WARN, ERROR, ALL, OFF -->
+       <appender-ref ref="consoleOut" /> <!--部署到服务器上时要注释掉 -->
+    </root>
+
+    <logger name="RedisRouteService" additivity="true"  level="INFO">
+        <appender-ref ref="RedisRouteServiceAppender"/>
+    </logger>
+    <logger name = "com.chanjet.mapper.AgentMapper" additivity="true" level="INFO"/>
+    <logger name = "com.chanjet.mapper.PosTransMapper" additivity="true" level="INFO"/>
+
+</configuration>
