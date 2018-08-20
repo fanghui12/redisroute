@@ -33,7 +33,6 @@ public class HTTPServer {
             while((temp = reader.readLine()) != null) {
                 logger.info("client request:"+temp);
             }
-
             //相应消息===========================================================
             //JSONObject jsStr = JSONObject.parseObject(temp);
 
